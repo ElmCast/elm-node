@@ -1,19 +1,19 @@
 {
-    "version": "1.0.0",
-    "summary": "Elm's standard libraries for server side development.",
-    "repository": "http://github.com/elmcast/elm-node.git",
-    "license": "BSD3",
-    "source-directories": [
-			  ".",
-        "src"
-    ],
-    "exposed-modules": [
-        "Process",
-        "File"
-    ],
-    "native-modules": true,
-    "dependencies": {
-        "elm-lang/core": "2.1.0 <= v < 3.0.0"
-    },
-    "elm-version": "0.15.0 <= v < 0.16.0"
+	"version": "1.0.0",
+	"summary": "Elm libraries for server side development.",
+	"repository": "http://github.com/elmcast/elm-node.git",
+	"license": "BSD3",
+	"source-directories": [
+		"src"
+	],
+	"exposed-modules": [
+		"Console",
+		"File",
+		"Process"
+	],
+	"native-modules": true,
+	"dependencies": {
+		"elm-lang/core": "2.1.0 <= v < 3.0.0"
+	},
+	"elm-version": "0.15.0 <= v < 0.16.0"
 }
