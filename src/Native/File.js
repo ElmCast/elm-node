@@ -1,20 +1,16 @@
 Elm.Native = Elm.Native || {};
-Elm.Native.Node = Elm.Native.Node || {};
-Elm.Native.Node.File = Elm.Native.Node.File || {};
+Elm.Native.File = Elm.Native.File || {};
 
-Elm.Native.Node.File.make = function(localRuntime) {
+Elm.Native.File.make = function(localRuntime) {
 	'use strict';
 
 	localRuntime.Native = localRuntime.Native || {};
-	localRuntime.Native.Node = localRuntime.Native.Node || {};
-	localRuntime.Native.Node.File = localRuntime.Native.Node.File || {};
-	if ('values' in localRuntime.Native.Node.File) {
-		return localRuntime.Native.Node.File.values;
+	localRuntime.Native.File = localRuntime.Native.File || {};
+	if ('values' in localRuntime.Native.File) {
+		return localRuntime.Native.File.values;
 	}
 
 	var Task = Elm.Native.Task.make(localRuntime);
-	var Utils = Elm.Native.Utils.make(localRuntime);
-	var List = Elm.Native.List.make(localRuntime);
 
 	var fs = require('fs');
 
@@ -29,7 +25,7 @@ Elm.Native.Node.File.make = function(localRuntime) {
 		});
 	}
 
-	return localRuntime.Native.Node.File.values = {
+	return localRuntime.Native.File.values = {
 		read: read,
 	};
 };

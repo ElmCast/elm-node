@@ -10,7 +10,7 @@ module File
 
 -}
 
-import Native.Node.File
+import Native.File
 import Task
 
 {-| Error
