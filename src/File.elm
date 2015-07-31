@@ -1,12 +1,11 @@
 module File
-    ( read, Error(..)
+    ( Error(..), read
     ) where
 
-{-| Node.File module
-
-@docs read
+{-| File
 
 @docs Error
+@docs read
 
 -}
 
@@ -22,4 +21,4 @@ type Error = FileError
 -}
 read : String -> Task.Task Error String
 read path =
-    Native.Node.File.read path
+    Native.File.read path

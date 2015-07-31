@@ -1,6 +1,18 @@
-module Node where
+module Node
+    ( log
+    ) where
+
+{-| Node
+
+@docs log
+
+-}
 
 import Native.Node
+import Task exposing (Task)
 
-version : String
-version = Native.Node.version
+{-| Log
+-}
+log : a -> Task x ()
+log value =
+    Native.Node.log (toString value)

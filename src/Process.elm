@@ -1,24 +1,18 @@
 module Process
-    ( print, argv
+    ( argv, exit, version
     ) where
 
-{-| Node.Process module
+{-| Process
 
-@docs print
 @docs argv
+@docs exit
+@docs version
 
 -}
 
 import Native.Process
 import Basics exposing (..)
 import Task exposing (Task, andThen, onError)
-
-{-| Temporary print task.
--}
-print : a -> Task x ()
-print value =
-  Native.Process.log (toString value)
-
 
 {-| The arguments passed to the process.
 -}
@@ -28,5 +22,11 @@ argv = Native.Process.argv
 
 {-| Exit
 -}
-run : Task x a -> Task x a
-run task = task `onError` Native.Process.exit
+exit : Int -> Task x ()
+exit code = Native.Process.exit code
+
+
+{-| Version
+-}
+version : String
+version = Native.Process.version

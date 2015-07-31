@@ -10,8 +10,18 @@ Elm.Native.Node.make = function(localRuntime) {
 		return localRuntime.Native.Node.values;
 	}
 
+	var Task = Elm.Native.Task.make(localRuntime);
+	var Utils = Elm.Native.Utils.make(localRuntime);
+
+	function log(string) {
+		return Task.asyncFunction(function(callback) {
+			console.log(string);
+			return callback(Task.succeed(Utils.Tuple0));
+		});
+	}
+
 	return localRuntime.Native.Node.values = {
-		version: process.version,
+		log: log,
 	};
 };
 
@@ -19,11 +29,17 @@ Elm.Native.Node.make = function(localRuntime) {
 	if (typeof module == 'undefined') {
 		throw new Error('You are trying to run a node Elm program in the browser!');
 	}
-})();
 
-module.exports = Elm;
-setTimeout(function() {
-	if (!module.parent) {
-		setImmediate(Elm.worker, Elm.Main);
+	if (module.exports === Elm) {
+		return;
 	}
-});
+
+	window = global;
+
+	module.exports = Elm;
+	setTimeout(function() {
+		if (!module.parent) {
+			setImmediate(Elm.worker, Elm.Main);
+		}
+	});
+})();

@@ -14,13 +14,6 @@ Elm.Native.Process.make = function(localRuntime) {
 	var Utils = Elm.Native.Utils.make(localRuntime);
 	var List = Elm.Native.List.make(localRuntime);
 
-	function log(string) {
-		return Task.asyncFunction(function(callback) {
-			console.log(string);
-			return callback(Task.succeed(Utils.Tuple0));
-		});
-	}
-
 	function exit(error) {
 		return Task.asyncFunction(function(callback) {
 			process.exit(error);
@@ -31,6 +24,6 @@ Elm.Native.Process.make = function(localRuntime) {
 	return localRuntime.Native.Process.values = {
 		argv: List.fromArray(process.argv),
 		exit: exit,
-		log: log,
+		version: process.version,
 	};
 };
