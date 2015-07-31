@@ -14,7 +14,7 @@ import Task
 
 {-| Error
 -}
-type Error = FileError
+type Error = ReadError String
 
 
 {-| Read a file.

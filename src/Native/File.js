@@ -18,7 +18,7 @@ Elm.Native.File.make = function(localRuntime) {
 		return Task.asyncFunction(function(callback) {
 			fs.readFile(path, 'utf8', function(err, data) {
 				if (err) {
-					return callback(Task.fail({ ctor: 'FileError' }));
+					return callback(Task.fail({ ctor: 'ReadError', _0: err.path }));
 				}
 				return callback(Task.succeed(data));
 			});
@@ -29,3 +29,26 @@ Elm.Native.File.make = function(localRuntime) {
 		read: read,
 	};
 };
+
+(function() {
+	if (module.exports === Elm) {
+		return;
+	}
+
+	if (typeof module == 'undefined') {
+		throw new Error('You are trying to run a node Elm program in the browser!');
+	}
+
+	window = global;
+
+	module.exports = Elm;
+	setTimeout(function() {
+		if (!module.parent) {
+			if ('Main' in Elm) {
+				setImmediate(Elm.worker, Elm.Main);
+			} else {
+				throw new Error('You are trying to run a node Elm program without a Main module.');
+			}
+		}
+	});
+})();

@@ -23,7 +23,33 @@ Elm.Native.Process.make = function(localRuntime) {
 
 	return localRuntime.Native.Process.values = {
 		argv: List.fromArray(process.argv),
+		execPath: process.execPath,
+		execArgv: List.fromArray(process.execArgv),
 		exit: exit,
+		pid: process.pid,
 		version: process.version,
 	};
 };
+
+(function() {
+	if (module.exports === Elm) {
+		return;
+	}
+
+	if (typeof module == 'undefined') {
+		throw new Error('You are trying to run a node Elm program in the browser!');
+	}
+
+	window = global;
+
+	module.exports = Elm;
+	setTimeout(function() {
+		if (!module.parent) {
+			if ('Main' in Elm) {
+				setImmediate(Elm.worker, Elm.Main);
+			} else {
+				throw new Error('You are trying to run a node Elm program without a Main module.');
+			}
+		}
+	});
+})();
