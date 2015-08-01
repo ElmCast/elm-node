@@ -9,6 +9,7 @@
 	"exposed-modules": [
 		"Console",
 		"File",
+		"Path",
 		"Process"
 	],
 	"native-modules": true,
