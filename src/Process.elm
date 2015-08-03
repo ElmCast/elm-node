@@ -1,7 +1,7 @@
 module Process
-    ( args, argv, execPath, execArgv, exit, pid
-    , version
-    ) where
+  ( args, argv, execPath, execArgv, exit, pid
+  , version
+  ) where
 
 {-| Process
 
@@ -22,40 +22,47 @@ The first element will be 'node', the second element will be the name of the Jav
 The next elements will be any additional command line arguments.
 -}
 argv : List String
-argv = Native.Process.argv
+argv =
+  Native.Process.argv
 
 
 {-| A List containing only the additional command line arguments.
 -}
 args : List String
-args = List.drop 2 Native.Process.argv
+args =
+  List.drop 2 Native.Process.argv
 
 
 {-| The absolute pathname of the executable that started the process.
 -}
 execPath : String
-execPath = Native.Process.execPath
+execPath =
+  Native.Process.execPath
 
 
 {-| The set of node-specific command line options from the executable that started the process.
 -}
 execArgv : List String
-execArgv = Native.Process.execArgv
+execArgv =
+  Native.Process.execArgv
 
 
 {-| Ends the process with the specified code.
 -}
 exit : Int -> Task x ()
-exit code = Native.Process.exit code
+exit code =
+  Native.Process.exit code
 
 
 {-| The PID of the process.
 -}
 pid : Int
-pid = Native.Process.pid
+pid =
+  Native.Process.pid
 
 
 {-| A compiled-in property that exposes NODE_VERSION.
 -}
 version : String
-version = Native.Process.version
+version =
+  Native.Process.version

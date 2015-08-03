@@ -9,6 +9,7 @@
 	"exposed-modules": [
 		"Console",
 		"File",
+		"Http",
 		"Path",
 		"Process"
 	],

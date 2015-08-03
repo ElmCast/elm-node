@@ -11,6 +11,7 @@ Elm.Native.File.make = function(localRuntime) {
 	}
 
 	var Task = Elm.Native.Task.make(localRuntime);
+	var Utils = Elm.Native.Utils.make(localRuntime);
 
 	var fs = require('fs');
 
@@ -25,8 +26,33 @@ Elm.Native.File.make = function(localRuntime) {
 		});
 	}
 
+	function write(path, data) {
+		return Task.asyncFunction(function(callback) {
+			fs.writeFile(path, data, function(err) {
+				if (err) {
+					return callback(Task.fail({ ctor: 'WriteError', _0: err.path }));
+				}
+				return callback(Task.succeed(Utils.Tuple0));
+			});
+		});
+	}
+
+	function lstat(path) {
+		return Task.asyncFunction(function(callback) {
+			fs.lstat(path, function(err, stat) {
+				if (err) {
+					return callback(Task.fail({ ctor: 'ReadError', _0: "" }));
+				}
+				stat['_'] = {};
+				return callback(Task.succeed(stat));
+			});
+		});
+	}
+
 	return localRuntime.Native.File.values = {
 		read: read,
+		write: F2(write),
+		lstat: lstat,
 	};
 };
 
