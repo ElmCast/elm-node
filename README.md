@@ -24,7 +24,6 @@ module Main where
 import Task exposing (Task)
 import Console
 import File
-import Process
 
 port main : Task x ()
 port main =
@@ -32,3 +31,5 @@ port main =
         `andThen` Console.log
         `onError` Console.fatal
 ```
+
+For a more in depth example, checkout [elm-oracle](https://github.com/ElmCast/elm-oracle/blob/master/Main.elm).
