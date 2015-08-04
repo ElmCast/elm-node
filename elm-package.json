@@ -11,7 +11,8 @@
 		"File",
 		"Http",
 		"Path",
-		"Process"
+		"Process",
+		"Url"
 	],
 	"native-modules": true,
 	"dependencies": {
