@@ -1,11 +1,13 @@
 module Process
-  ( args, argv, execPath, execArgv, exit, pid
+  ( args, argv, execPath, execArgv, exec, exit, pid
   , version
   ) where
 
 {-| Process
 
 @docs args, argv, execPath, execArgv
+
+@docs exec
 
 @docs exit, pid
 
@@ -45,6 +47,13 @@ execPath =
 execArgv : List String
 execArgv =
   Native.Process.execArgv
+
+
+{-| Run a command in a shell.
+-}
+exec : String -> Task String String
+exec command =
+  Native.Process.exec command
 
 
 {-| Ends the process with the specified code.

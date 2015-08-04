@@ -14,6 +14,8 @@ Elm.Native.Process.make = function(localRuntime) {
 	var Utils = Elm.Native.Utils.make(localRuntime);
 	var List = Elm.Native.List.make(localRuntime);
 
+	var child = require('child_process');
+
 	function exit(error) {
 		return Task.asyncFunction(function(callback) {
 			process.exit(error);
@@ -21,10 +23,23 @@ Elm.Native.Process.make = function(localRuntime) {
 		});
 	}
 
+	function exec(command) {
+		return Task.asyncFunction(function(callback) {
+			child.exec(command, function(error, stdout, stderr) {
+				if (error != null) {
+					callback(Task.fail('Exec: ' + error));
+				} else {
+					callback(Task.succeed('' + stdout));
+				}
+			});
+		});
+	}
+
 	return localRuntime.Native.Process.values = {
 		argv: List.fromArray(process.argv),
 		execPath: process.execPath,
 		execArgv: List.fromArray(process.execArgv),
+		exec: exec,
 		exit: exit,
 		pid: process.pid,
 		version: process.version,
