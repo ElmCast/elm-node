@@ -21,7 +21,7 @@ The API is still very experimental.
 ```elm
 module Main where
 
-import Task exposing (Task)
+import Task exposing (Task,andThen,onError)
 import Console
 import File
 
