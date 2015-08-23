@@ -23,7 +23,7 @@ Elm.Native.Console.make = function(localRuntime) {
 	var stdin = NS.input("stdin", "");
 	
 	rl.on('line', function(line) {
-		localRuntime.notify(std.id, line);
+		localRuntime.notify(stdin.id, line);
 	});
 
 	function log(value) {
