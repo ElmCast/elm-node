@@ -31,8 +31,29 @@ Elm.Native.Http.make = function(localRuntime) {
 		});
 	}
 
+	function serve(port, task_function) {
+		return Task.asyncFunction(function(callback) {
+			http.createServer(function(request, response) { 
+				Task.perform(task_function(request)(response));
+			}).listen(port);
+			return callback(Task.succeed(Utils.Tuple0));
+		});
+	}
+
+	function get_url(request) {
+		return request.url;
+	}
+
+	function response_end(response, s) {
+		response.end(s);
+		return Utils.Tuple0;
+	}
+
 	return localRuntime.Native.Http.values = {
 		get: get,
+		serve: F2(serve),
+		get_url: get_url,
+		response_end: F2(response_end),
 	};
 };
 
