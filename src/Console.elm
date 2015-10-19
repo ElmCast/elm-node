@@ -4,7 +4,7 @@ module Console
 
 {-| Console
 
-@docs log, error, fatal
+@docs log, error, fatal, stdin
 
 -}
 
