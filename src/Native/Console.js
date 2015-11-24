@@ -11,7 +11,6 @@ Elm.Native.Console.make = function(localRuntime) {
 	}
 
 	var NS = Elm.Native.Signal.make(localRuntime);
-	var Show = Elm.Native.Show.make(localRuntime);
 	var Task = Elm.Native.Task.make(localRuntime);
 	var Utils = Elm.Native.Utils.make(localRuntime);
 
@@ -19,42 +18,30 @@ Elm.Native.Console.make = function(localRuntime) {
 	var rl = readline.createInterface({
 		input: process.stdin,
 	});
-	
+
 	var stdin = NS.input("stdin", "");
-	
+
 	rl.on('line', function(line) {
 		localRuntime.notify(stdin.id, line);
 	});
 
 	function log(value) {
 		return Task.asyncFunction(function(callback) {
-			if (typeof value == "string") {
-				console.log(value);
-			} else {
-				console.log(Show.toString(value));
-			}
+			console.log(value);
 			return callback(Task.succeed(Utils.Tuple0));
 		});
 	}
 
 	function error(value) {
 		return Task.asyncFunction(function(callback) {
-			if (typeof value == "string") {
-				console.error(value);
-			} else {
-				console.error(Show.toString(value));
-			}
+			console.error(value);
 			return callback(Task.succeed(Utils.Tuple0));
 		});
 	}
 
 	function fatal(value) {
 		return Task.asyncFunction(function(callback) {
-			if (typeof value == "string") {
-				console.error(value);
-			} else {
-				console.error(Show.toString(value));
-			}
+			console.error(value);
 			process.exit(1);
 			return callback(Task.succeed(Utils.Tuple0));
 		});
