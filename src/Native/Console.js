@@ -11,7 +11,6 @@ Elm.Native.Console.make = function(localRuntime) {
 	}
 
 	var NS = Elm.Native.Signal.make(localRuntime);
-	var Show = Elm.Native.Show.make(localRuntime);
 	var Task = Elm.Native.Task.make(localRuntime);
 	var Utils = Elm.Native.Utils.make(localRuntime);
 
@@ -31,7 +30,7 @@ Elm.Native.Console.make = function(localRuntime) {
 			if (typeof value == "string") {
 				console.log(value);
 			} else {
-				console.log(Show.toString(value));
+				console.log(Utils.toString(value));
 			}
 			return callback(Task.succeed(Utils.Tuple0));
 		});
@@ -42,7 +41,7 @@ Elm.Native.Console.make = function(localRuntime) {
 			if (typeof value == "string") {
 				console.error(value);
 			} else {
-				console.error(Show.toString(value));
+				console.error(Utils.toString(value));
 			}
 			return callback(Task.succeed(Utils.Tuple0));
 		});
@@ -53,7 +52,7 @@ Elm.Native.Console.make = function(localRuntime) {
 			if (typeof value == "string") {
 				console.error(value);
 			} else {
-				console.error(Show.toString(value));
+				console.error(Utils.toString(value));
 			}
 			process.exit(1);
 			return callback(Task.succeed(Utils.Tuple0));

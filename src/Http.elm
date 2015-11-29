@@ -1,5 +1,5 @@
 module Http
-  ( Error(..), get, serve, getURL, sendResponse
+  ( Error(..), get, serve, getURL, sendResponse, Request, Response
   ) where
 
 {-|
