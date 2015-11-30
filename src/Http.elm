@@ -5,8 +5,6 @@ module Http
 {-|
 
 @docs Error
-@docs Request
-@docs Response
 @docs get, serve, getURL, sendResponse
 
 -}
