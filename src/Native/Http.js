@@ -33,7 +33,7 @@ Elm.Native.Http.make = function(localRuntime) {
 
 	function serve(port, task_function) {
 		return Task.asyncFunction(function(callback) {
-			http.createServer(function(request, response) { 
+			http.createServer(function(request, response) {
 				Task.perform(task_function(request)(response));
 			}).listen(port);
 			return callback(Task.succeed(Utils.Tuple0));

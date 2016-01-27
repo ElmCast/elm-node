@@ -37,7 +37,7 @@ get url =
 
 {-| serve
 -}
-serve : Int -> (Request -> Response -> Task x a) -> Task x () 
+serve : Int -> (Request -> Response -> Task x a) -> Task x ()
 serve prt taskFunction = 
   Native.Http.serve prt taskFunction
 

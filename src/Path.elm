@@ -1,6 +1,6 @@
 module Path
   ( normalize, join, resolve, isAbsolute, relative
-  , basename, extname, sep, delimiter 
+  , basename, extname, sep, delimiter
   ) where
 
 {-| This module contains utilities for handling and transforming file paths.

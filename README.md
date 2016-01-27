@@ -1,6 +1,6 @@
 # Experimental server side Elm package
 
-If you have a Main module, you can run the compiled js file with node automatically. 
+If you have a Main module, you can run the compiled js file with node automatically.
 
 ```
 node elm.js

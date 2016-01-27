@@ -1,10 +1,10 @@
 module Console
-  ( log, error, fatal, stdin
+  ( log, error, fatal
   ) where
 
 {-| Console
 
-@docs log, error, fatal, stdin
+@docs log, error, fatal
 
 -}
 
@@ -31,10 +31,3 @@ error value =
 fatal : a -> Task x ()
 fatal value =
   Native.Console.fatal value
-
-
-{-| The current input on stdin. Event triggers on each new line.
--}
-stdin : Signal String
-stdin =
-  Native.Console.stdin
