@@ -1,6 +1,9 @@
 module Console
-  ( log, error, fatal
-  ) where
+    exposing
+        ( log
+        , error
+        , fatal
+        )
 
 {-| Console
 
@@ -16,18 +19,18 @@ import Task exposing (Task)
 -}
 log : a -> Task x ()
 log value =
-  Native.Console.log value
+    Native.Console.log value
 
 
 {-| Prints to stderr with a newline.
 -}
 error : a -> Task x ()
 error value =
-  Native.Console.error value
+    Native.Console.error value
 
 
 {-| Prints to stderr with a newline, then exits with an error code of 1.
 -}
 fatal : a -> Task x ()
 fatal value =
-  Native.Console.fatal value
+    Native.Console.fatal value
