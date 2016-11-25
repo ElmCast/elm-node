@@ -1,79 +1,54 @@
-Elm.Native = Elm.Native || {};
-Elm.Native.Console = Elm.Native.Console || {};
+//import Native.Console //
 
-Elm.Native.Console.make = function(localRuntime) {
-	'use strict';
+var _elmcast$elm_node$Native_Console = function() {
 
-	localRuntime.Native = localRuntime.Native || {};
-	localRuntime.Native.Console = localRuntime.Native.Console || {};
-	if ('values' in localRuntime.Native.Console) {
-		return localRuntime.Native.Console.values;
-	}
+    function log(value) {
+        return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
+            if (typeof value == "string") {
+                console.log(value);
+            } else {
+                console.log(_elm_lang$core$Native_Utils.toString(value));
+            }
+            return callback(_elm_lang$core$Native_Scheduler.succeed(
+                _elm_lang$core$Native_Utils.Tuple0));
+        });
+    }
 
-	var NS = Elm.Native.Signal.make(localRuntime);
-	var Task = Elm.Native.Task.make(localRuntime);
-	var Utils = Elm.Native.Utils.make(localRuntime);
+    function error(value) {
+        return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
+            if (typeof value == "string") {
+                console.error(value);
+            } else {
+                console.error(_elm_lang$core$Native_Utils.toString(value));
+            }
+            return callback(_elm_lang$core$Native_Scheduler.succeed(
+                _elm_lang$core$Native_Utils.Tuple0));
+        });
+    }
 
-	function log(value) {
-		return Task.asyncFunction(function(callback) {
-			if (typeof value == "string") {
-				console.log(value);
-			} else {
-				console.log(Utils.toString(value));
-			}
-			return callback(Task.succeed(Utils.Tuple0));
-		});
-	}
+    function fatal(value) {
+        return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
+            if (typeof value == "string") {
+                console.error(value);
+            } else {
+                console.error(_elm_lang$core$Native_Utils.toString(value));
+            }
+            process.exit(1);
+            return callback(_elm_lang$core$Native_Scheduler.succeed(
+                _elm_lang$core$Native_Utils.Tuple0));
+        });
+    }
 
-	function error(value) {
-		return Task.asyncFunction(function(callback) {
-			if (typeof value == "string") {
-				console.error(value);
-			} else {
-				console.error(Utils.toString(value));
-			}
-			return callback(Task.succeed(Utils.Tuple0));
-		});
-	}
+    return {
+        log: log,
+        error: error,
+        fatal: fatal
+    };
+}();
 
-	function fatal(value) {
-		return Task.asyncFunction(function(callback) {
-			if (typeof value == "string") {
-				console.error(value);
-			} else {
-				console.error(Utils.toString(value));
-			}
-			process.exit(1);
-			return callback(Task.succeed(Utils.Tuple0));
-		});
-	}
-
-	return localRuntime.Native.Console.values = {
-		log: log,
-		error: error,
-		fatal: fatal
-	};
-};
 
 (function() {
-	if (typeof module == 'undefined') {
-		throw new Error('You are trying to run a node Elm program in the browser!');
-	}
-
-	if (module.exports === Elm) {
-		return;
-	}
-
-	window = global;
-
-	module.exports = Elm;
-	setTimeout(function() {
-		if (!module.parent) {
-			if ('Main' in Elm) {
-				setImmediate(Elm.worker, Elm.Main);
-			} else {
-				throw new Error('You are trying to run a node Elm program without a Main module.');
-			}
-		}
-	});
+    if (typeof module == 'undefined') {
+        throw new Error('You are trying to run a node Elm program in the browser!');
+    }
 })();
