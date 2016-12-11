@@ -1,80 +1,56 @@
-Elm.Native = Elm.Native || {};
-Elm.Native.File = Elm.Native.File || {};
+//import Native.File //
 
-Elm.Native.File.make = function(localRuntime) {
-	'use strict';
+var _elmcast$elm_node$Native_File = function() {
 
-	localRuntime.Native = localRuntime.Native || {};
-	localRuntime.Native.File = localRuntime.Native.File || {};
-	if ('values' in localRuntime.Native.File) {
-		return localRuntime.Native.File.values;
-	}
+    var fs = require('fs');
 
-	var Task = Elm.Native.Task.make(localRuntime);
-	var Utils = Elm.Native.Utils.make(localRuntime);
+    function read(path) {
+        return _elm_lang$core$Native_Scheduler.nativeBinding(
+            function(callback) {
+                fs.readFile(path, 'utf8', function(err, data) {
+                    if (err) {
+                        return callback(_elm_lang$core$Native_Scheduler.fail({ ctor: 'ReadError', _0: err.path }));
+                    }
+                    return callback(_elm_lang$core$Native_Scheduler.succeed(data));
+                });
+            });
+    }
 
-	var fs = require('fs');
+    function write(path, data) {
+        return _elm_lang$core$Native_Scheduler.nativeBinding(
+            function(callback) {
+                fs.writeFile(path, data, function(err) {
+                    if (err) {
+                        return callback(_elm_lang$core$Native_Scheduler.fail({ ctor: 'WriteError', _0: err.path }));
+                    }
+                    return callback(_elm_lang$core$Native_Scheduler.succeed(_elm_lang$core$Native_Utils.Tuple0));
+                });
+            });
+    }
 
-	function read(path) {
-		return Task.asyncFunction(function(callback) {
-			fs.readFile(path, 'utf8', function(err, data) {
-				if (err) {
-					return callback(Task.fail({ ctor: 'ReadError', _0: err.path }));
-				}
-				return callback(Task.succeed(data));
-			});
-		});
-	}
+    function lstat(path) {
+        return _elm_lang$core$Native_Scheduler.nativeBinding(
+            function(callback) {
+                fs.lstat(path, function(err, stat) {
+                    if (err) {
+                        return callback(_elm_lang$core$Native_Scheduler.fail({ ctor: 'ReadError', _0: "" }));
+                    }
+                    stat['_'] = {};
+                    return callback(_elm_lang$core$Native_Scheduler.succeed(stat));
+                });
+            });
+    }
 
-	function write(path, data) {
-		return Task.asyncFunction(function(callback) {
-			fs.writeFile(path, data, function(err) {
-				if (err) {
-					return callback(Task.fail({ ctor: 'WriteError', _0: err.path }));
-				}
-				return callback(Task.succeed(Utils.Tuple0));
-			});
-		});
-	}
+    return {
+        read: read,
+        write: F2(write),
+        lstat: lstat
+    };
+}();
 
-	function lstat(path) {
-		return Task.asyncFunction(function(callback) {
-			fs.lstat(path, function(err, stat) {
-				if (err) {
-					return callback(Task.fail({ ctor: 'ReadError', _0: "" }));
-				}
-				stat['_'] = {};
-				return callback(Task.succeed(stat));
-			});
-		});
-	}
-
-	return localRuntime.Native.File.values = {
-		read: read,
-		write: F2(write),
-		lstat: lstat,
-	};
-};
 
 (function() {
-	if (module.exports === Elm) {
-		return;
-	}
-
-	if (typeof module == 'undefined') {
-		throw new Error('You are trying to run a node Elm program in the browser!');
-	}
-
-	window = global;
-
-	module.exports = Elm;
-	setTimeout(function() {
-		if (!module.parent) {
-			if ('Main' in Elm) {
-				setImmediate(Elm.worker, Elm.Main);
-			} else {
-				throw new Error('You are trying to run a node Elm program without a Main module.');
-			}
-		}
-	});
+    if (typeof module == 'undefined') {
+        throw new Error('You are trying to run a node Elm program in the browser!');
+    }
 })();

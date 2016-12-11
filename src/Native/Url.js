@@ -1,49 +1,23 @@
-Elm.Native = Elm.Native || {};
-Elm.Native.Url = Elm.Native.Url || {};
+//import Native.Url //
 
-Elm.Native.Url.make = function(localRuntime) {
-	'use strict';
+var _elmcast$elm_node$Native_Url = function() {
 
-	localRuntime.Native = localRuntime.Native || {};
-	localRuntime.Native.Url = localRuntime.Native.Url || {};
-	if ('values' in localRuntime.Native.Url) {
-		return localRuntime.Native.Url.values;
-	}
+	  var url = require('url');
 
-	var List = Elm.Native.List.make(localRuntime);
+    function resolve(ps) {
+		    var b = url.resolve.apply(url.resolve, _elm_lang$core$Native_List.toArray(ps));
+		    console.log(b);
+		    return b;
+    }
 
-	var url = require('url');
+    return {
+        resolve: resolve
+    };
+}();
 
-	function resolve(ps) {
-		var b = url.resolve.apply(url.resolve, List.toArray(ps));
-		console.log(b);
-		return b;
-	}
-
-	return localRuntime.Native.Url.values = {
-		resolve: resolve,
-	};
-};
 
 (function() {
-	if (typeof module == 'undefined') {
-		throw new Error('You are trying to run a node Elm program in the browser!');
-	}
-
-	if (module.exports === Elm) {
-		return;
-	}
-
-	window = global;
-
-	module.exports = Elm;
-	setTimeout(function() {
-		if (!module.parent) {
-			if ('Main' in Elm) {
-				setImmediate(Elm.worker, Elm.Main);
-			} else {
-				throw new Error('You are trying to run a node Elm program without a Main module.');
-			}
-		}
-	});
+	  if (typeof module == 'undefined') {
+		    throw new Error('You are trying to run a node Elm program in the browser!');
+	  }
 })();

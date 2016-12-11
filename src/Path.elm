@@ -1,7 +1,15 @@
 module Path
-  ( normalize, join, resolve, isAbsolute, relative
-  , basename, extname, sep, delimiter
-  ) where
+    exposing
+        ( normalize
+        , join
+        , resolve
+        , isAbsolute
+        , relative
+        , basename
+        , extname
+        , sep
+        , delimiter
+        )
 
 {-| This module contains utilities for handling and transforming file paths.
 Almost all these methods perform only string transformations.
@@ -14,13 +22,14 @@ The file system is not consulted to check whether paths are valid.
 
 import Native.Path
 
+
 {-| Normalize a string path, taking care of '..' and '.' parts.
 
     normalize "/foo/bar//baz/asdf/quux/.." == "/foo/bar/baz/asdf"
 -}
 normalize : String -> String
 normalize path =
-  Native.Path.normalize path
+    Native.Path.normalize path
 
 
 {-| Join a list of paths together and normalize the resulting path.
@@ -29,7 +38,7 @@ normalize path =
 -}
 join : List String -> String
 join paths =
-  Native.Path.join paths
+    Native.Path.join paths
 
 
 {-| Resolves a list of paths to an absolute path.
@@ -46,7 +55,7 @@ which is similar to
 -}
 resolve : List String -> String
 resolve paths =
-  Native.Path.resolve paths
+    Native.Path.resolve paths
 
 
 {-| Determines whether a path will always resolve to the same location,
@@ -59,7 +68,7 @@ regardless of the working directory.
 -}
 isAbsolute : String -> Bool
 isAbsolute path =
-  Native.Path.isAbsolute path
+    Native.Path.isAbsolute path
 
 
 {-| Solve the relative path between two paths.
@@ -68,7 +77,7 @@ isAbsolute path =
 -}
 relative : String -> String -> String
 relative from to =
-  Native.Path.relative from to
+    Native.Path.relative from to
 
 
 {-| Determine the directory name of a path.
@@ -87,7 +96,7 @@ dirname path =
 -}
 basename : String -> String -> String
 basename path ext =
-  Native.Path.basename path ext
+    Native.Path.basename path ext
 
 
 {-| Determine the extension of the path.
@@ -99,18 +108,18 @@ basename path ext =
 -}
 extname : String -> String
 extname path =
-  Native.Path.extname path
+    Native.Path.extname path
 
 
 {-| The platform-specific file separator, '\\' or '/'.
 -}
 sep : String
 sep =
-  Native.Path.sep
+    Native.Path.sep
 
 
 {-| The platform-specific path delimiter, ; or ':'.
 -}
 delimiter : String
 delimiter =
-  Native.Path.delimiter
+    Native.Path.delimiter
